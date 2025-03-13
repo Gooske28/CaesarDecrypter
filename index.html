@@ -13,34 +13,63 @@
             background-color: #222;
             color: white;
         }
-        input, button {
+        textarea {
+            width: 80%;
+            height: 100px;
             padding: 10px;
             margin: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+        }
+        button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .button-container {
+            margin-top: 10px;
         }
         img {
             width: 100px;
             height: auto;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <img src="Caesar.png" alt="Caesar Cipher Logo">
     <h1>Caesar Cipher Tool</h1>
-    <input type="text" id="cipherText" placeholder="Tekst invoeren" size="40">
-    <input type="number" id="shift" min="1" max="25" value="3">
-    <button onclick="decrypt()">Ontcijfer</button>
-    <button onclick="encrypt()">Versleutel</button>
+    <textarea id="cipherText" placeholder="Voer tekst in..." rows="4"></textarea><br>
+    <input type="number" id="shift" placeholder="Shift" min="1" max="25" value="3">
+    <div class="button-container">
+        <button onclick="encrypt()">Encrypt</button>
+        <button onclick="decrypt()">Decrypt</button>
+        <button onclick="copyText()">Copy</button>
+    </div>
     <h2>Resultaat:</h2>
     <p id="result"></p>
 
     <script>
         function caesarCipher(text, shift, decrypt = false) {
-            if (decrypt) shift = (26 - shift) % 26;
-            return text.replace(/[a-zA-Z]/g, function(char) {
-                let start = char < 'a' ? 65 : 97;
-                return String.fromCharCode(((char.charCodeAt(0) - start + shift + 26) % 26) + start);
-            });
+            if (decrypt) shift = -shift;
+            return text.split('').map(char => {
+                if (char.match(/[a-zA-Z]/)) {
+                    let start = char.charCodeAt(0) < 97 ? 65 : 97;
+                    return String.fromCharCode(((char.charCodeAt(0) - start + shift + 26) % 26 + start));
+                }
+                return char;
+            }).join('');
         }
 
         function decrypt() {
@@ -52,7 +81,16 @@
         function encrypt() {
             let text = document.getElementById("cipherText").value;
             let shift = parseInt(document.getElementById("shift").value);
-            document.getElementById("result").textContent = caesarCipher(text, shift, false);
+            document.getElementById("result").innerText = caesarCipher(text, shift, false);
+        }
+
+        function copyToClipboard() {
+            let resultText = document.getElementById("result").innerText;
+            navigator.clipboard.writeText(resultText).then(() => {
+                alert("Gecodeerde/ontcijferde tekst gekopieerd!");
+            }).catch(err => {
+                console.error("Fout bij kopiëren: ", err);
+            });
         }
     </script>
 </body>
