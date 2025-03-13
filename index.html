@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caesar Decrypter</title>
+    <title>Caesar Cipher Tool</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,25 +19,36 @@
     </style>
 </head>
 <body>
-    <h1>Caesar Cipher Decrypter</h1>
-    <input type="text" id="cipherText" placeholder="Versleutelde tekst" size="30">
+    <h1>Caesar Cipher Tool</h1>
+    <input type="text" id="cipherText" placeholder="Tekst invoeren" size="30">
     <input type="number" id="shift" min="0" max="25" value="3">
     <button onclick="decrypt()">Ontcijfer</button>
-    <h2>Ontsleutelde tekst:</h2>
+    <button onclick="encrypt()">Versleutel</button>
+    <h2>Resultaat:</h2>
     <p id="result"></p>
 
     <script>
-        function decrypt() {
-            let text = document.getElementById("cipherText").value;
-            let shift = parseInt(document.getElementById("shift").value);
-            let decryptedText = text.split('').map(char => {
+        function caesarCipher(text, shift, decrypt = false) {
+            if (decrypt) shift = -shift;
+            return text.split('').map(char => {
                 if (char.match(/[a-zA-Z]/)) {
                     let start = char === char.toUpperCase() ? 65 : 97;
-                    return String.fromCharCode(((char.charCodeAt(0) - start - shift + 26) % 26) + start);
+                    return String.fromCharCode(((char.charCodeAt(0) - start + shift + 26) % 26) + start);
                 }
                 return char;
             }).join('');
-            document.getElementById("result").innerText = decryptedText;
+        }
+
+        function decrypt() {
+            let text = document.getElementById("cipherText").value;
+            let shift = parseInt(document.getElementById("shift").value);
+            document.getElementById("result").innerText = caesarCipher(text, shift, true);
+        }
+
+        function encrypt() {
+            let text = document.getElementById("cipherText").value;
+            let shift = parseInt(document.getElementById("shift").value);
+            document.getElementById("result").innerText = caesarCipher(text, shift, false);
         }
     </script>
 </body>
