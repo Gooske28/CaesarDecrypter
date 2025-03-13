@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,12 +17,11 @@
             width: 80%;
             height: 100px;
             padding: 10px;
-            margin: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
-            border-radius: 5px;
             background-color: #333;
             color: white;
+            resize: vertical;
         }
         button {
             padding: 10px;
@@ -55,42 +54,31 @@
     <div class="button-container">
         <button onclick="encrypt()">Encrypt</button>
         <button onclick="decrypt()">Decrypt</button>
-        <button onclick="copyText()">Copy</button>
     </div>
     <h2>Resultaat:</h2>
-    <p id="result"></p>
-
+    <textarea id="result" rows="4" readonly></textarea>
     <script>
         function caesarCipher(text, shift, decrypt = false) {
             if (decrypt) shift = -shift;
             return text.split('').map(char => {
                 if (char.match(/[a-zA-Z]/)) {
-                    let start = char.charCodeAt(0) < 97 ? 65 : 97;
-                    return String.fromCharCode(((char.charCodeAt(0) - start + shift + 26) % 26 + start));
+                    let base = char.charCodeAt(0) < 97 ? 65 : 97;
+                    return String.fromCharCode(((char.charCodeAt(0) - base + shift + 26) % 26 + base));
                 }
                 return char;
             }).join('');
         }
 
-        function decrypt() {
-            let text = document.getElementById("cipherText").value;
-            let shift = parseInt(document.getElementById("shift").value);
-            document.getElementById("result").innerText = caesarCipher(text, shift, true);
-        }
-
         function encrypt() {
             let text = document.getElementById("cipherText").value;
             let shift = parseInt(document.getElementById("shift").value);
-            document.getElementById("result").innerText = caesarCipher(text, shift, false);
+            document.getElementById("result").value = caesarCipher(text, shift, false);
         }
 
-        function copyToClipboard() {
-            let resultText = document.getElementById("result").innerText;
-            navigator.clipboard.writeText(resultText).then(() => {
-                alert("Gecodeerde/ontcijferde tekst gekopieerd!");
-            }).catch(err => {
-                console.error("Fout bij kopiëren: ", err);
-            });
+        function decrypt() {
+            let text = document.getElementById("cipherText").value;
+            let shift = parseInt(document.getElementById("shift").value);
+            document.getElementById("result").value = caesarCipher(text, shift, true);
         }
     </script>
 </body>
