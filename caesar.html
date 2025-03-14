@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,15 +39,16 @@
         .button-container {
             margin-top: 10px;
         }
-        img {
-            width: 100px;
-            height: auto;
-            margin-bottom: 10px;
+        .nav-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #444;
         }
     </style>
 </head>
 <body>
-    <img src="Caesar.png" alt="Caesar Cipher Logo">
+    <button class="nav-button" onclick="location.href='aes.html'">🔐 Ga naar AES</button>
     <h1>Caesar Cipher Tool</h1>
     <textarea id="cipherText" placeholder="Voer tekst in..." rows="4"></textarea><br>
     <input type="number" id="shift" placeholder="Shift" min="1" max="25" value="12">
@@ -68,13 +69,11 @@
                 return char;
             }).join('');
         }
-
         function encrypt() {
             let text = document.getElementById("cipherText").value;
             let shift = parseInt(document.getElementById("shift").value);
             document.getElementById("result").value = caesarCipher(text, shift, false);
         }
-
         function decrypt() {
             let text = document.getElementById("cipherText").value;
             let shift = parseInt(document.getElementById("shift").value);
