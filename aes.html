@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AES-256 Encryptie</title>
+    <link rel="icon" type="image/png" href="AES.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #222;
+            color: white;
+        }
+        textarea {
+            width: 80%;
+            height: 100px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            background-color: #333;
+            color: white;
+            resize: vertical;
+        }
+        button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .button-container {
+            margin-top: 10px;
+        }
+        .nav-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <button class="nav-button" onclick="location.href='index.html'">🔄 Ga naar Caesar</button>
+    <h1>AES-256 Encryptie</h1>
+    <textarea id="inputText" placeholder="Voer tekst in"></textarea><br>
+    <input type="password" id="password" placeholder="Voer wachtwoord in">
+    <div class="button-container">
+        <button onclick="encrypt()">Encrypt</button>
+        <button onclick="decrypt()">Decrypt</button>
+    </div>
+    <h3>Resultaat:</h3>
+    <textarea id="output" readonly></textarea>
+    <script>
+        function encrypt() {
+            let text = document.getElementById("inputText").value;
+            let password = document.getElementById("password").value;
+            let encrypted = CryptoJS.AES.encrypt(text, password).toString();
+            document.getElementById("output").value = encrypted;
+        }
+        function decrypt() {
+            let encryptedText = document.getElementById("output").value;
+            let password = document.getElementById("password").value;
+            let decrypted = CryptoJS.AES.decrypt(encryptedText, password).toString(CryptoJS.enc.Utf8);
+            document.getElementById("output").value = decrypted || "Ongeldig wachtwoord";
+        }
+    </script>
+</body>
+</html>
