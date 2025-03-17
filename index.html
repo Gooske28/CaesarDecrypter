@@ -40,17 +40,18 @@
             margin-top: 10px;
             display: inline-block;
         }
-        .nav-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #444;
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
     </style>
 </head>
 <body>
-    <button class="nav-button" onclick="location.href='aes.html'">🔐 Ga naar AES</button>
-    <button class="nav-button" onclick="location.href='xor.html'">🔑 Ga naar XOR</button>
+    <div class="nav-buttons">
+        <button class="nav-button" onclick="location.href='aes.html'">🔐 Ga naar AES</button>
+        <button class="nav-button" onclick="location.href='xor.html'">🔑 Ga naar XOR</button>
+    </div>
     <h1>Caesar Cipher Tool</h1>
     <textarea id="cipherText" placeholder="Voer tekst in..." rows="4"></textarea><br>
     <input type="number" id="shift" placeholder="Shift" min="1" max="25" value="12">
