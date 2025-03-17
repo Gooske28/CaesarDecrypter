@@ -1,3 +1,4 @@
+/* === index.html === */
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -5,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AES-256 Encryptie</title>
     <link rel="icon" type="image/png" href="Aes.png">
-    <link rel="icon" type="image/png" href="Aes.png">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,20 +40,25 @@
         .button-container {
             margin-top: 10px;
         }
-        .nav-button {
+        .nav-buttons {
             position: absolute;
             top: 10px;
             right: 10px;
+        }
+        .nav-button {
             background-color: #444;
+            margin-left: 5px;
         }
     </style>
 </head>
 <body>
-    <button class="nav-button" onclick="location.href='index.html'">🔄 Ga naar Caesar</button>
-    <button class="nav-button" onclick="location.href='xor.html'">🔑 Ga naar XOR</button>
+    <div class="nav-buttons">
+        <button class="nav-button" onclick="location.href='index.html'">🔄 Ga naar Caesar</button>
+        <button class="nav-button" onclick="location.href='xor.html'">🔑 Ga naar XOR</button>
+    </div>
     <h1>AES-256 Encryptie</h1>
     <textarea id="inputText" placeholder="Voer tekst in"></textarea><br>
-    <input type="text" id="password" placeholder="Voer wachtwoord in">
+    <input type="password" id="password" placeholder="Voer wachtwoord in">
     <div class="button-container">
         <button onclick="encrypt()">Encrypt</button>
         <button onclick="decrypt()">Decrypt</button>
