@@ -39,17 +39,24 @@
         .button-container {
             margin-top: 10px;
         }
-        .nav-button {
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
             position: absolute;
             top: 10px;
             right: 10px;
+        }
+        .nav-button {
             background-color: #444;
         }
     </style>
 </head>
 <body>
-    <button class="nav-button" onclick="location.href='index.html'">🔄 Ga naar Caesar</button>
-    <button class="nav-button" style="right: 120px;" onclick="location.href='aes.html'">🔐 Ga naar AES</button>
+    <div class="nav-buttons">
+        <button class="nav-button" onclick="location.href='index.html'">🔄 Ga naar Caesar</button>
+        <button class="nav-button" onclick="location.href='aes.html'">🔐 Ga naar AES</button>
+    </div>
     <h1>XOR Cipher Tool</h1>
     <textarea id="inputText" placeholder="Voer tekst in"></textarea><br>
     <input type="text" id="key" placeholder="Voer sleutel in (tekst of getal)">
